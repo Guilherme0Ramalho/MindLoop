@@ -1,24 +1,21 @@
-export function getHistoric(): string[]{
-    const historic = localStorage.getItem('historics')
+export function getHistoric(): string[] {
+	const historic = localStorage.getItem('historics')
 
-    if(historic){
-        return JSON.parse(historic)
-    }
+	if (historic) {
+		return JSON.parse(historic)
+	}
 
-    return[]
+	return []
 }
 
-export function setHistoric(item: string){
-    const historic = localStorage.getItem('historics')
-    
-    if(historic){
-        const parse = JSON.parse(historic)
+export function setHistoric(item: string) {
+	const historic = localStorage.getItem('historics')
 
-        localStorage.setItem('historics', JSON.stringify([...parse, item]))
+	if (historic) {
+		const parse = JSON.parse(historic)
+		localStorage.setItem('historics', JSON.stringify([...parse, item]))
+		return
+	}
 
-        return
-    }
-
-    localStorage.setItem('historics', JSON.stringify([item]))
+	localStorage.setItem('historics', JSON.stringify([item]))
 }
-

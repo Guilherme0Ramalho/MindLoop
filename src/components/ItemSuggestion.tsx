@@ -1,6 +1,5 @@
 import  type {ComponentProps} from 'react'
 
-
 type ItemSuggestionProps =    ComponentProps<'button'> &{
     title: string
 }
