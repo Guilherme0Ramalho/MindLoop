@@ -16,7 +16,6 @@
   padding: 0;
   border: 0;
   box-sizing: border-box;
-
   font-family: "IBM Plex Sans", sans-serif;
   font-style: normal;
   font-size: 100%;
@@ -31,6 +30,7 @@ body {
   width: 100%;
   height: 100vh;
   display: flex;
+  overflow-x: hidden;
 }
 
 .sidebar {
@@ -39,6 +39,24 @@ body {
   height: 100%;
   border-right: 1px solid var(--border-primary);
   padding: 30px 0;
+  transition: transform 0.3s ease;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.hamburger {
+  display: none;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 24px;
+  background: none;
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+  z-index: 10;
 }
 
 details {
@@ -66,16 +84,13 @@ details summary::after {
 }
 
 details[open] summary::after {
-  content: "△";
-  transition: rotate 200ms ease-out;
   rotate: 180deg;
 }
 
 details button {
   display: block;
   width: 85%;
-  margin: 0 auto;
-  margin-top: 8px;
+  margin: 8px auto 0 auto;
   padding: 5px;
   background-color: var(--secondary);
   border: 1px solid var(--border-primary);
@@ -180,12 +195,17 @@ details button {
   color: var(--primary);
 }
 
-.question {
+.question,
+.answer,
+.feedback {
   width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--border-primary);
+}
+
+.question {
   background-color: var(--foreground-primary);
   padding: 20px 15px;
-  border: 1px solid var(--border-primary);
-  border-radius: 4px;
 }
 
 .question h2 {
@@ -203,10 +223,7 @@ details button {
 }
 
 .answer {
-  width: 100%;
   background-color: var(--foreground-primary);
-  border: 1px solid var(--border-primary);
-  border-radius: 4px;
 }
 
 .answer h2 {
@@ -222,11 +239,9 @@ details button {
 }
 
 .feedback {
-  width: 100%;
-  padding: 20px 15px;
   background-color: var(--foreground-secondary);
   border: 1px solid var(--border-secondary);
-  border-radius: 4px;
+  padding: 20px 15px;
 }
 
 .feedback h2 {
@@ -258,4 +273,77 @@ details button {
   border-radius: 4px;
   background-color: var(--primary);
   color: var(--text-color);
+}
+
+/* --- RESPONSIVIDADE --- */
+
+/* Celulares */
+@media (max-width: 600px) {
+  .hamburger {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    height: 100%;
+    z-index: 5;
+    width: 250px;
+    padding: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.open {
+    transform: translateX(300px);
+  }
+
+  .content {
+    padding: 0 20px;
+  }
+
+  .box-home h1 {
+    font-size: 2rem;
+  }
+
+  .box-chat > h1 {
+    font-size: 1.8rem;
+  }
+
+  .box-input button {
+    width: 100%;
+  }
+
+  .box-input textarea {
+    width: 100%;
+  }
+
+  .question h2,
+  .answer h2,
+  .feedback h2 {
+    font-size: 1.2rem;
+  }
+
+  .feedback .actions button {
+    width: 100%;
+  }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .content {
+    padding: 0 50px;
+  }
+
+  .box-home h1 {
+    font-size: 2.5rem;
+  }
+
+  .box-chat > h1 {
+    font-size: 2rem;
+  }
 }

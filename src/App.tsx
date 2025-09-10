@@ -7,8 +7,8 @@ import { ThreeDots } from "react-loader-spinner"
 type ProgressType = 'pending' | 'started' | 'done'
 
 type Message = {
-	role: 'user' | 'assistant'
-	content: string
+  role: 'user' | 'assistant'
+  content: string
   subject?: string
 }
 
@@ -17,16 +17,15 @@ function App() {
   const [textarea, setTextarea] = useState<string>('')
   const [chat, setChat] = useState<Message[]>([])
   const [loading, setLoading] = useState<boolean>(false)
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
 
-  function resetChat(){
+  function resetChat() {
     setProgress('pending')
     setChat([])
   }
 
   async function handleSubmitChat() {
-    if (!textarea) {
-      return
-    }
+    if (!textarea) return
 
     const message = textarea
     setTextarea('')
@@ -50,7 +49,7 @@ function App() {
       setChat(text => [...text, messageGPT])
       setLoading(true)
       const questionGPT = await sendMessage([messageGPT])
-      setChat(text => [...text, { role: 'assistant', content: questionGPT.content}])
+      setChat(text => [...text, { role: 'assistant', content: questionGPT.content }])
       setLoading(false)
       return
     }
@@ -63,33 +62,35 @@ function App() {
     setChat(text => [...text, responseUser])
     setLoading(true)
     const feedbackGPT = await sendMessage([...chat, responseUser])
-    setChat(prev => [...prev, { role: 'assistant', content: feedbackGPT.content }])
+    setChat(text => [...text, { role: 'assistant', content: feedbackGPT.content }])
     setLoading(false)
     setProgress('done')
   }
-  
+
   return (
     <div className="container">
-      <div className="sidebar">
+      {/* Botão hamburguer visível só no mobile */}
+      <button
+        className="hamburger"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        ☰
+      </button>
+
+      <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <details open className="suggestion">
           <summary>Tópicos Sugeridos</summary>
-          <ItemSuggestion title="HTML" onClick={() => setTextarea('HTML')}/>
-          <ItemSuggestion title="CSS" onClick={() => setTextarea('CSS')}/>
-          <ItemSuggestion title="JavaScript" onClick={() => setTextarea('JavaScript')}/>
-          <ItemSuggestion title="TypeScript" onClick={() => setTextarea('TypeScript')}/>
+          <ItemSuggestion title="HTML" onClick={() => setTextarea('HTML')} />
+          <ItemSuggestion title="CSS" onClick={() => setTextarea('CSS')} />
+          <ItemSuggestion title="JavaScript" onClick={() => setTextarea('JavaScript')} />
+          <ItemSuggestion title="TypeScript" onClick={() => setTextarea('TypeScript')} />
         </details>
 
         <details open className="historic">
           <summary>Histórico</summary>
-  {
-  getHistoric().map((item: any, index: any) => (
-    <ItemSuggestion 
-      key={item + index} 
-      title={item} 
-      onClick={() => setTextarea(item)} 
-    />
-  ))
-}
+          {getHistoric().map(item => (
+            <ItemSuggestion title={item} onClick={() => setTextarea(item)} />
+          ))}
         </details>
       </div>
 
@@ -97,7 +98,7 @@ function App() {
         {progress === 'pending' && (
           <div className="box-home">
             <span>Olá, eu sou o</span>
-            <h1>teach<span>.me</span></h1>
+            <h1>Mind<span>Loop</span></h1>
             <p>
               Estou aqui para te ajudar nos seus estudos.
               Selecione um dos tópicos sugeridos ao lado
@@ -129,7 +130,7 @@ function App() {
 
             {chat[3] && (
               <div className="feedback">
-                <h2>Feedback teach<span>.me</span></h2>
+                            <h2>Feedback Mind<span>Loop</span></h2>
                 <p>{chat[3].content}</p>
                 <div className="actions">
                   <button onClick={resetChat}>Estudar novo tópico</button>
@@ -138,7 +139,7 @@ function App() {
             )}
 
             {loading && (
-              <ThreeDots 
+              <ThreeDots
                 visible={true}
                 height="30"
                 width="60"
@@ -151,24 +152,27 @@ function App() {
           </div>
         )}
 
-        
-
         {progress !== 'done' && (
           <div className="box-input">
-            <textarea 
+            <textarea
               value={textarea}
               onChange={element => setTextarea(element.target.value)}
               placeholder={
-                progress === 'started' ? "Insira sua resposta..." : "Insira o tema que deseja estudar..."
+                progress === 'started'
+                  ? "Insira sua resposta..."
+                  : "Insira o tema que deseja estudar..."
               }
             />
-            <button onClick={handleSubmitChat}>{progress === 'pending' ? 'Enviar Pergunta' : 'Enviar Resposta'}</button>
+            <button onClick={handleSubmitChat}>
+              {progress === 'pending' ? 'Enviar Pergunta' : 'Enviar Resposta'}
+            </button>
           </div>
         )}
 
         <footer className="box-footer">
-          <p>teach<span>.me</span></p>
-        </footer>
+      <p>Mind<span>Loop</span> – Sua mente em constante evolução.
+					  Onde cada resposta leva a um novo aprendizado.</p>
+    </footer>
       </div>
     </div>
   )
