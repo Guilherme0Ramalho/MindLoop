@@ -142,7 +142,7 @@ function App() {
                 visible={true}
                 height="30"
                 width="60"
-                color="#d6409f"
+                color="#028322"
                 radius="9"
                 ariaLabel="three-dots-loading"
                 wrapperStyle={{ margin: '30px auto' }}
