@@ -4,6 +4,7 @@ import { getHistoric, setHistoric } from "./storage/historics"
 import { sendMessage } from "./api/openai"
 import { ThreeDots } from "react-loader-spinner"
 
+
 type ProgressType = 'pending' | 'started' | 'done'
 
 type Message = {
@@ -178,4 +179,5 @@ function App() {
   )
 }
 
-export default App
+export default App;
+

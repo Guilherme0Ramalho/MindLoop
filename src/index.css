@@ -21,20 +21,23 @@
   font-size: 100%;
 }
 
-body {
+body, html {
+  width: 100%;
+  min-height: 100vh;
   background-color: var(--background-primary);
   color: var(--text-color);
 }
 
+/* ===== CONTAINER ===== */
 .container {
-  width: 100%;
-  height: 100vh;
   display: flex;
   overflow-x: hidden;
 }
 
+/* ===== SIDEBAR ===== */
 .sidebar {
   background-color: var(--foreground-primary);
+
   width: 400px;
   height: 100%;
   border-right: 1px solid var(--border-primary);
@@ -57,6 +60,7 @@ body {
   border: none;
   cursor: pointer;
   z-index: 10;
+
 }
 
 details {
@@ -102,22 +106,26 @@ details button {
   background-color: var(--primary);
 }
 
+/* ===== CONTENT ===== */
 .content {
   width: 100%;
-  height: 100%;
   display: flex;
   padding: 0 150px;
   flex-direction: column;
+  padding: 15px;
+  flex: 1;
+  overflow-x: hidden;
 }
 
+/* ===== BOX HOME ===== */
 .box-home {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   text-align: center;
-  height: 100%;
+  width: 100%;
 }
 
 .box-home span {
@@ -127,6 +135,7 @@ details button {
 .box-home h1 {
   font-size: 3rem;
   font-weight: 600;
+  word-break: break-word;
 }
 
 .box-home h1 span {
@@ -137,6 +146,7 @@ details button {
   font-weight: 300;
 }
 
+/* ===== BOX INPUT ===== */
 .box-input {
   display: flex;
   flex-direction: column;
@@ -153,37 +163,26 @@ details button {
   border-radius: 4px;
   outline: none;
   color: var(--text-color);
+  font-size: 0.9rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .box-input button {
-  width: 170px;
-  margin-left: auto;
-  padding: 8px;
+  width: 100%;
+  padding: 10px;
   border-radius: 4px;
   background-color: var(--primary);
   color: var(--text-color);
 }
 
-.box-footer {
-  width: 100%;
-  padding: 20px;
-}
-
-.box-footer p {
-  text-align: center;
-  font-weight: 500;
-}
-
-.box-footer p span {
-  color: var(--primary);
-}
-
+/* ===== BOX CHAT ===== */
 .box-chat {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  height: 100%;
-  padding-top: 30px;
+  width: 100%;
+  padding-top: 20px;
 }
 
 .box-chat > h1 {
@@ -231,6 +230,8 @@ details button {
   background-color: var(--secondary);
   border-bottom: 1px solid var(--border-primary);
   font-weight: 400;
+
+
 }
 
 .answer p {
@@ -261,15 +262,16 @@ details button {
 
 .feedback .actions {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
   padding-top: 20px;
   border-top: 1px solid var(--border-secondary);
 }
 
 .feedback .actions button {
-  width: 170px;
-  padding: 8px;
+  width: 100%;
+  padding: 10px;
   border-radius: 4px;
   background-color: var(--primary);
   color: var(--text-color);
@@ -346,4 +348,15 @@ details button {
   .box-chat > h1 {
     font-size: 2rem;
   }
+
+  .box-input button {
+    width: 170px;
+    align-self: flex-end;
+  }
+
+  .feedback .actions {
+    flex-direction: row;
+    gap: 20px;
+  }
 }
+
